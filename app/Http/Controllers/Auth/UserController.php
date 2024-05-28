@@ -51,6 +51,11 @@ class UserController extends BaseController
     }
     public function delete(Request $request, int $id)
     {
+        $userService = new UserService();
+        $userService->delete($request, $id);
+
+
+        return redirect()->route('userlist');
     }
 
     public function config(Request $request)

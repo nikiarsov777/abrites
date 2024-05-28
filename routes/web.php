@@ -8,13 +8,7 @@ Route::get('/', function () {
     return view('main');
 });
 
-Route::group(['prefix' => 'users', 'middleware' => [UserMiddleware::class]], function() {
-    Route::get('/config', [App\Http\Controllers\Auth\UserController::class,'config'])->name('config');
-    Route::post('/update/{id}', [App\Http\Controllers\Auth\UserController::class,'update']);
-    Route::get('/list', [App\Http\Controllers\Auth\UserController::class,'index'])->name('userlist');
 
-    Route::get('/{id}', [App\Http\Controllers\Auth\UserController::class,'show'])->name('user_update');
-});
 
 Route::controller(LoginRegisterController::class)->group(function() {
     Route::get('/register', 'register')->name('register');
@@ -25,6 +19,17 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::get('/users/logout', 'logout');
     Route::get('/users/login', 'login')->name('login');
 });
+
+Route::group(['prefix' => 'users', 'middleware' => [UserMiddleware::class]], function() {
+    Route::get('/config', [App\Http\Controllers\Auth\UserController::class,'config'])->name('config');
+    Route::post('/update/{id}', [App\Http\Controllers\Auth\UserController::class,'update']);
+    Route::get('/list', [App\Http\Controllers\Auth\UserController::class,'index'])->name('userlist');
+
+    Route::get('/{id}', [App\Http\Controllers\Auth\UserController::class,'show'])->name('user_update');
+    Route::post('/delete/{id}', [App\Http\Controllers\Auth\UserController::class,'delete'])->name('user_delete');
+});
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('2fa')->name('home');
 
 Route::get('2fa', [App\Http\Controllers\TwoFAController::class, 'index'])->name('2fa.index');

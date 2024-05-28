@@ -24,7 +24,7 @@ class Check2FA
         }
         if(!Session::has('user_id')) {
             Session::forget('user_2fa');
-            return redirect()->to('/logout');
+            return redirect()->to('/users/logout');
         }
 
         return $next($request);

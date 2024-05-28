@@ -4,13 +4,26 @@ namespace App\Services;
 
 use App\Models\Group;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserService
 {
+    public function index(Request $request, string $order = 'id'): Paginator
+    {
+        return User::where('id', '>', 0)->orderBy($order)->simplePaginate(10);
+    }
+
+    public function show(Request $request, int $id): User
+    {
+        return User::findOrFail($id);
+    }
+
     public function create(Request $request, bool $verified=false): User
     {
         $this->validator($request->all())->validate();
@@ -46,7 +59,6 @@ class UserService
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->phone = $request->phone;
         if ($request->password) {
             $user->password = Hash::make($request->password);
         }

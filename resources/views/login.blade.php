@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="pt-1 mb-4">
                                         <button data-mdb-button-init data-mdb-ripple-init
-                                            class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
+                                            class="btn btn-dark btn-lg btn-block" type="submit">{{_('Login')}}</button>
                                     </div>
 
                                     <a class="small text-muted" href="/password/reset">Forgot password?</a>

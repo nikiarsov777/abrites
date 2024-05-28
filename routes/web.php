@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Auth\LoginRegisterController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Middleware\UserMiddleware;
 
 Route::get('/', function () {
@@ -10,14 +9,11 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'users', 'middleware' => [UserMiddleware::class]], function() {
-    // Route::get('/register', 'UserController@register')->name('register');
-    // // Route::post('/store', 'store')->name('store');
-    
-    // // Route::post('/authenticate', 'authenticate')->name('authenticate');
-    // Route::get('/dashboard', 'App\Http\Controllers\UserController@dashboard')->name('dashboard')->middleware('2fa');
-    // Route::post('/logout', 'App\Http\Controllers\UserController@logout')->name('logout');
-    // Route::get('/logout', 'App\Http\Controllers\UserController@logout');
-    // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('2fa')->name('home');
+    Route::get('/config', [App\Http\Controllers\Auth\UserController::class,'config'])->name('config');
+    Route::post('/update/{id}', [App\Http\Controllers\Auth\UserController::class,'update']);
+    Route::get('/list', [App\Http\Controllers\Auth\UserController::class,'index'])->name('userlist');
+
+    Route::get('/{id}', [App\Http\Controllers\Auth\UserController::class,'show'])->name('user_update');
 });
 
 Route::controller(LoginRegisterController::class)->group(function() {

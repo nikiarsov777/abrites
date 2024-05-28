@@ -91,7 +91,12 @@ class LoginRegisterController extends Controller
     public function dashboard()
     {
         if (Auth::check()) {
-            return view('auth.dashboard');
+            $attr = [
+                'title' => 'Main',
+                'page' => 'auth.config',
+                'sub_page' => '',
+            ];
+            return view('auth.dashboard', $attr);
         }
 
         return redirect()->route('login')

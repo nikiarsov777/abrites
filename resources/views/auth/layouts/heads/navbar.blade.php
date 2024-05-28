@@ -1,5 +1,5 @@
 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Abrites</a>
+    <a class="navbar-brand" href="#">Abrites User Panel</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/users/dashboard">
                     <i class="fa fa-home"></i>
                     {{ __('Home') }}
                     <span class="sr-only">(current)</span>
@@ -39,9 +39,25 @@
                                 {{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('config') }}"
+                                        onclick="event.preventDefault();
+                            document.getElementById('config-form').submit();">{{ _('Config') }}</a>
+                                    <form id="config-form" action="{{ route('config') }}" method="GET">
+                                        @csrf
+                                    </form>
+                                </li>
+                                <hr />
+                                <li><a class="dropdown-item" href="{{ route('userlist') }}"
+                                        onclick="event.preventDefault();
+                            document.getElementById('users-form').submit();">{{ _('Users') }}</a>
+                                    <form id="users-form" action="{{ route('userlist') }}" method="GET">
+                                        @csrf
+                                    </form>
+                                </li>
+                                <hr />
                                 <li><a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">Logout</a>
+                        document.getElementById('logout-form').submit();">{{ _('Logout') }}</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                         @csrf
                                     </form>

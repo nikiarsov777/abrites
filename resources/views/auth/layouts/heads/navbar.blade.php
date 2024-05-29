@@ -47,10 +47,18 @@
                                     </form>
                                 </li>
                                 <hr />
-                                <li><a class="dropdown-item" href="{{ route('userlist') }}"
+                                <li><a class="dropdown-item" href="{{ route('user_catalog') }}"
+                                    onclick="event.preventDefault();
+                        document.getElementById('catalog-form').submit();">{{ _('Catalog') }}</a>
+                                <form id="catalog-form" action="{{ route('user_catalog') }}" method="GET">
+                                    @csrf
+                                </form>
+                            </li>
+                            <hr />
+                                <li><a class="dropdown-item" href="{{ route('user_list') }}"
                                         onclick="event.preventDefault();
                             document.getElementById('users-form').submit();">{{ _('Users') }}</a>
-                                    <form id="users-form" action="{{ route('userlist') }}" method="GET">
+                                    <form id="users-form" action="{{ route('user_list') }}" method="GET">
                                         @csrf
                                     </form>
                                 </li>

@@ -12,7 +12,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class UserService
+class UserService extends BaseService
 {
     public function index(Request $request, string $order = 'id'): Paginator
     {

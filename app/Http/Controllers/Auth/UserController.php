@@ -55,7 +55,7 @@ class UserController extends BaseController
         $userService->delete($request, $id);
 
 
-        return redirect()->route('userlist');
+        return redirect()->route('user_list');
     }
 
     public function config(Request $request)
@@ -68,6 +68,16 @@ class UserController extends BaseController
         ];
 
 
+        return view('auth.dashboard', $attr);
+    }
+
+    public function catalog()
+    {
+        $attr = [
+            'title' => 'Catalog',
+            'page' => 'auth.catalog',
+            'sub_page' => ''
+        ];
         return view('auth.dashboard', $attr);
     }
 }

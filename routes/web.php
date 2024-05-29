@@ -23,12 +23,17 @@ Route::controller(LoginRegisterController::class)->group(function() {
 Route::group(['prefix' => 'users', 'middleware' => [UserMiddleware::class]], function() {
     Route::get('/config', [App\Http\Controllers\Auth\UserController::class,'config'])->name('config');
     Route::post('/update/{id}', [App\Http\Controllers\Auth\UserController::class,'update']);
-    Route::get('/list', [App\Http\Controllers\Auth\UserController::class,'index'])->name('userlist');
+    Route::get('/list', [App\Http\Controllers\Auth\UserController::class,'index'])->name('user_list');
 
+    Route::get('/catalog', [App\Http\Controllers\Auth\UserController::class,'catalog'])->name('user_catalog');
     Route::get('/{id}', [App\Http\Controllers\Auth\UserController::class,'show'])->name('user_update');
     Route::post('/delete/{id}', [App\Http\Controllers\Auth\UserController::class,'delete'])->name('user_delete');
 });
 
+// Route::group(['prefix' => 'catalog', 'middleware' => [UserMiddleware::class]], function() {
+    Route::group(['prefix' => 'catalog'], function() {
+    Route::get('/', [App\Http\Controllers\Auth\UserCatalogController::class,'index'])->name('catalog');
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('2fa')->name('home');
 

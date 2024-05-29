@@ -3,8 +3,8 @@
 @section('content')
     <div class="row justify-content-center mt-5" >
         <div class="col-md-10">
-            <div class="card" >
-                <div class="card-header" >Dashboard :: {{ $title }}</div>
+            <div class="card" style="background-color: #000; opacity: .5;">
+                <div class="card-header" style="color: #fff;">Dashboard :: {{ $title }}</div>
                 <div class="card-body" >
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">

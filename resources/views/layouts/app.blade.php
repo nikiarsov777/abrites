@@ -1,16 +1,16 @@
 <html>
-    <div>@include('layouts.heads.head')</div>
+    @include('layouts.heads.head')
 
 <title>Abrites</title>
 
 <body>
-    <div>@include('layouts.heads.navbar')</div>
+    <span>@include('layouts.heads.navbar')</span>
     
     <div>
         <main class="py-4">
             @yield('content')
         </main>
-        <canvas id=c style="z-index: -1; position: fixed;">
+        <canvas id=c style="z-index: -1; position: fixed; top:0;">
 
         </canvas>
 

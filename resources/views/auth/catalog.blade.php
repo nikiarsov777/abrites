@@ -2,36 +2,66 @@
     <div class="card">
         <div class="card-header">Catalog</div>
         <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-lg-3">
+                        <label for="search" style="color:blue">{{ _('Search for') }}</label>
+                        <input type="text" id="search" name="search" />
+                    </div>
+                    <div class="col col-lg-2">
+                        <input type="button" id="submit" name="submit" value="{{ _('Search') }}"
+                            onclick="search()" />
+                    </div>
+                </div>
+            </div>
             <table class="table table-striped table-dark" id="tableCatalog">
                 <thead>
                     <tr>
-                        <th scope="col" onclick="sort('id')"><a href="#" class="pe-auto"
-                                style="text-decoration: none">#</a></th>
-                        <th scope="col" onclick="sort('language')"><a href="#" class="pe-auto"
-                                style="text-decoration: none">{{ _('Language') }}</a></th>
-                        <th scope="col" onclick="sort('name')"><a href="#" class="pe-auto"
-                                style="text-decoration: none">{{ _('Name') }}</a></th>
-                        <th scope="col" onclick="sort('description')"><a href="#" class="pe-auto"
-                                style="text-decoration: none">{{ _('Description') }}</a></th>
+                        <th scope="col">#</th>
+                        <th scope="col">{{ _('Language') }}</th>
+                        <th scope="col">{{ _('Name') }}</th>
+                        <th scope="col">{{ _('Description') }}</th>
                         <th scope="col">{{ _('Platform') }}</th>
+                        <th scope="col" onclick="sort('latest_release_published_at')"><a href="#" class="pe-auto"
+                                style="text-decoration: none">{{ _('Latest published') }}</a>
+                        </th>
+                        <th scope="col" onclick="sort('rank')"><a href="#" class="pe-auto"
+                                style="text-decoration: none">{{ _('Rank') }}</a>
+                        </th>
+                        <th scope="col" onclick="sort('stars')"><a href="#" class="pe-auto"
+                                style="text-decoration: none">{{ _('Stars') }}</a>
+                        </th>
+
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
         </div>
+        <input type="hidden" id="keyword" value="php"/>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-3">
+                    <input type="hidden" id="page" value="1"/>
+                    <input type="button" value="{{ _('Prev') }}" onclick="gotoPage('prev')" />
+                </div>
+                <div class="col col-lg-2">
+                    <input type="button" value="{{ _('Next') }}" onclick="gotoPage('next')" />
+                </div>
+            </div>
+        </div>
     </div>
-    <form id="form-id" method="POST" action="/users">
-        @csrf
-    </form>
+
     <script>
         function sort(arg) {
-            document.location.href = "/catalog?order=" + arg;
+            load(q = 'php', 1, sort = arg);
         }
 
-        function load() {
+        function load(q = 'php', page = 1, sort = 'latest_release_published_at') {
+            $("#tableCatalog").find("tr:gt(0)").remove();
             $("#tableCatalog > tbody:first").append('<tr><td colspan="5">Loading ...</td></tr>');
-            $.get("/catalog?q=php&sort=latest_release_published_at&per_page=10", function(data, status) {
+            var query = "/catalog?q=" + q + "&sort=" + sort + "&per_page=10&languages=php&page=" + page;
+            $.get(query, function(data, status) {
                 var rows = '';
                 var i = 1;
                 $.each(data, function() {
@@ -51,12 +81,53 @@
                     rows += '<td>';
                     rows += this.platform;
                     rows += '</td>';
+                    rows += '<td>';
+                    rows += this.latest_release_published_at;
+                    rows += '</td>';
+                    rows += '<td>';
+                    rows += this.rank;
+                    rows += '</td>';
+                    rows += '<td>';
+                    rows += this.stars;
+                    rows += '</td>';
                     rows += '</tr>';
                     i++;
                 });
                 $("#tableCatalog tr").last().remove();
                 $("#tableCatalog > tbody:first").append(rows);
             });
+        }
+
+        function gotoPage(arg)
+        {
+            var gotoPage = $('#page').val();
+            if (arg == 'prev') {
+                if (gotoPage > 1) {
+                    gotoPage--;
+                } else {
+                    alert('No more pages!');
+                    return;
+                }
+            }
+
+            if (arg == 'next') {
+                if (gotoPage >= 1) {
+                    gotoPage++;
+                } else {
+                    alert('No more pages!');
+                    return;
+                }
+            }
+
+            $('#page').val(gotoPage);
+            var keyword = $('#keyword').val();
+            load(q = keyword, gotoPage);
+        }
+
+        function search() {
+            var keyword = encodeURIComponent($.trim($('#search').val()));
+            $('#keyword').val(keyword);
+            load(q = keyword);
         }
 
         $(document).ready(function() {

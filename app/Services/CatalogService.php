@@ -9,7 +9,7 @@ class CatalogService extends BaseService
 {
     public function index(Request $request, string $order = 'id')
     {
-        $params = $request->only('sort', 'q', 'per_page');
+        $params = $request->only('sort', 'q', 'per_page', 'languages', 'page');
 
         $libApiCall = $this->call('/search', $params, 0);
 

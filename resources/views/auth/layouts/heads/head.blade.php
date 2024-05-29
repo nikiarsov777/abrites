@@ -1,10 +1,14 @@
 <head>
     <style>
+        
         canvas {
 
             position: absolute;
             top: 50;
             left: 0;
+        }
+        label, span {
+            color: #ffffff;
         }
     </style>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">

@@ -8,8 +8,8 @@
                                 @method('PUT')
                                 <input type="hidden" name="form" value="config" />
                                 <div class="d-flex align-items-center mb-3 pb-1">
-                                    <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                                    <span class="h5 fw-bold mb-0">{{ _('User Information') }}</span>
+                                    <i class="fas fa-cubes fa-2x me-3" style="color: #ffffff;"></i>
+                                    <span class="h5 fw-bold mb-0" style="color: #ffffff;">{{ _('User Information') }}</span>
                                 </div>
 
                                 <div data-mdb-input-init class="form-outline mb-4">

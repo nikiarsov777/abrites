@@ -34,6 +34,20 @@
                         @endif
                     @else
                         <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/users/whishlist" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="fa fa-bell">
+                                    <span class="badge badge-info">0</span>
+                                </span>
+                                {{ _('Whishlist') }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="#">{{ _('Edit Wishlist') }}</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 {{ Auth::user()->name }}
@@ -48,13 +62,13 @@
                                 </li>
                                 <hr />
                                 <li><a class="dropdown-item" href="{{ route('user_catalog') }}"
-                                    onclick="event.preventDefault();
+                                        onclick="event.preventDefault();
                         document.getElementById('catalog-form').submit();">{{ _('Catalog') }}</a>
-                                <form id="catalog-form" action="{{ route('user_catalog') }}" method="GET">
-                                    @csrf
-                                </form>
-                            </li>
-                            <hr />
+                                    <form id="catalog-form" action="{{ route('user_catalog') }}" method="GET">
+                                        @csrf
+                                    </form>
+                                </li>
+                                <hr />
                                 <li><a class="dropdown-item" href="{{ route('user_list') }}"
                                         onclick="event.preventDefault();
                             document.getElementById('users-form').submit();">{{ _('Users') }}</a>

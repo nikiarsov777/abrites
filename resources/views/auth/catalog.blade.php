@@ -73,7 +73,7 @@
                     rows += this.language;
                     rows += '</td>';
                     rows += '<td>';
-                    rows += this.name;
+                    rows += this.name + ' - ' + this.latest_release_number;
                     rows += '</td>';
                     rows += '<td>';
                     rows += this.description;
@@ -131,7 +131,7 @@
         }
 
         $(document).ready(function() {
-            load();
+            // load();
         });
     </script>
 @endsection

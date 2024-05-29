@@ -20,6 +20,7 @@
 </table>
 <form id="form-id" method="POST" action="/users">
     @csrf
+    @method('DELETE')
 </form>
 {{ $users->links() }}
 <script>
@@ -36,8 +37,7 @@
     function deleteUser(id)
     {
         if (confirm('Are you sure you want to delete this user?')) {
-            //document.location.href="/users/delete/" + id;
-            document.getElementById('form-id').action = '/users/delete/' + id;
+            document.getElementById('form-id').action = '/users/' + id;
             document.getElementById('form-id').submit();
         }
     }

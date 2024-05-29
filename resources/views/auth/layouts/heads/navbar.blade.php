@@ -37,7 +37,7 @@
                             <a class="nav-link dropdown-toggle" href="/users/whishlist" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="fa fa-bell">
-                                    <span class="badge badge-info">0</span>
+                                    <span class="badge badge-info" id="wishlist_num">0</span>
                                 </span>
                                 {{ _('Whishlist') }}
                             </a>

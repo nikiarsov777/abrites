@@ -31,18 +31,18 @@
                         <th scope="col" onclick="sort('stars')"><a href="#" class="pe-auto"
                                 style="text-decoration: none">{{ _('Stars') }}</a>
                         </th>
-
+                        <th> </th>
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
         </div>
-        <input type="hidden" id="keyword" value="php"/>
+        <input type="hidden" id="keyword" value="php" />
         <div class="container">
             <div class="row">
                 <div class="col col-lg-3">
-                    <input type="hidden" id="page" value="1"/>
+                    <input type="hidden" id="page" value="1" />
                     <input type="button" value="{{ _('Prev') }}" onclick="gotoPage('prev')" />
                 </div>
                 <div class="col col-lg-2">
@@ -89,6 +89,15 @@
                     rows += '</td>';
                     rows += '<td>';
                     rows += this.stars;
+
+                    rows += '<input type="hidden" id="row_' + i + '" value="' + this.language + '###' +
+                        this.name + '###' + this.latest_release_number + '###' +
+                        this.description + '###' + this.platform + '###' +
+                        this.latest_release_published_at + '###' +
+                        this.rank + '###' + this.stars + '">';
+                    rows += '</td>';
+                    rows += '<td>';
+                    rows += '<span id="but_' + i + '"><input type="button" value="Add" onclick="addWish(' + i + ')" /></span>';
                     rows += '</td>';
                     rows += '</tr>';
                     i++;
@@ -98,8 +107,7 @@
             });
         }
 
-        function gotoPage(arg)
-        {
+        function gotoPage(arg) {
             var gotoPage = $('#page').val();
             if (arg == 'prev') {
                 if (gotoPage > 1) {
@@ -130,8 +138,14 @@
             load(q = keyword);
         }
 
+        function addWish(num) {
+            var numWish = 1*($('#wishlist_num').text()) + 1;
+            $('#wishlist_num').text(numWish);
+            $('#but_' + num).empty()
+        }
+
         $(document).ready(function() {
-            // load();
+            load();
         });
     </script>
 @endsection

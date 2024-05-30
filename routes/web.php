@@ -10,35 +10,40 @@ Route::get('/', function () {
 
 
 
-Route::controller(LoginRegisterController::class)->group(function() {
+Route::controller(LoginRegisterController::class)->group(function () {
     Route::get('/register', 'register')->name('register');
     Route::post('/store', 'store')->name('store');
-    Route::post('/authenticate','authenticate')->name('authenticate');
+    Route::post('/authenticate', 'authenticate')->name('authenticate');
     Route::get('/users/dashboard', 'dashboard')->name('dashboard')->middleware('2fa');
     Route::post('/users/logout', 'logout')->name('logout');
     Route::get('/users/logout', 'logout');
     Route::get('/users/login', 'login')->name('login');
 });
 
-Route::group(['prefix' => 'users', 'middleware' => [UserMiddleware::class]], function() {
-    Route::get('/config', [App\Http\Controllers\Auth\UserController::class,'config'])->name('config');
-    Route::put('/{id}', [App\Http\Controllers\Auth\UserController::class,'update']);
-    Route::get('/list', [App\Http\Controllers\Auth\UserController::class,'index'])->name('user_list');
+Route::group(['prefix' => 'users', 'middleware' => [UserMiddleware::class]], function () {
+    Route::get('/config', [App\Http\Controllers\Auth\UserController::class, 'config'])->name('config');
+    Route::put('/{id}', [App\Http\Controllers\Auth\UserController::class, 'update']);
+    Route::get('/list', [App\Http\Controllers\Auth\UserController::class, 'index'])->name('user_list');
 
-    Route::get('/catalog', [App\Http\Controllers\Auth\UserController::class,'catalog'])->name('user_catalog');
-    Route::get('/{id}', [App\Http\Controllers\Auth\UserController::class,'show'])->name('user_update');
-    Route::delete('/{id}', [App\Http\Controllers\Auth\UserController::class,'delete'])->name('user_delete');
+    Route::get('/catalog', [App\Http\Controllers\Auth\UserController::class, 'catalog'])->name('user_catalog');
+    Route::get('/{id}', [App\Http\Controllers\Auth\UserController::class, 'show'])->name('user_update');
+    Route::delete('/{id}', [App\Http\Controllers\Auth\UserController::class, 'delete'])->name('user_delete');
 
-    Route::get('/wishlist', [App\Http\Controllers\Auth\WishlistController::class,'index'])->name('wishlist_index');
-    Route::post('/wishlist', [App\Http\Controllers\Auth\WishlistController::class,'create'])->name('wishlist_create');
-    Route::get('/wishlist/count', [App\Http\Controllers\Auth\WishlistController::class,'count'])->name('wishlist_count');
-    Route::put('/wishlist/{id}', [App\Http\Controllers\Auth\WishlistController::class,'update'])->name('wishlist_update');
-    Route::delete('/wishlist/{id}', [App\Http\Controllers\Auth\WishlistController::class,'update'])->name('wishlist_delete');
+    Route::get('/wishlist', [App\Http\Controllers\Auth\UserController::class, 'wishlist']);
+    Route::post('/wishlist', [App\Http\Controllers\Auth\UserController::class, 'wishlistCreate']);
 });
 
+Route::group(['prefix' => 'wishlists'], function () {
+    Route::get('/', [App\Http\Controllers\Auth\WishlistController::class, 'index'])->name('wishlist_index');
+    Route::get('/count', [App\Http\Controllers\Auth\WishlistController::class, 'count'])->name('wishlist_count');
+    Route::get('/{id}', [App\Http\Controllers\Auth\WishlistController::class, 'edit'])->name('wishlist_edit');
+    Route::post('/', [App\Http\Controllers\Auth\WishlistController::class, 'create'])->name('wishlist_create');
+    Route::put('/{id}', [App\Http\Controllers\Auth\WishlistController::class, 'update'])->name('wishlist_update');
+    Route::delete('/{id}', [App\Http\Controllers\Auth\WishlistController::class, 'delete'])->name('wishlist_delete');
+});
 // Route::group(['prefix' => 'catalog', 'middleware' => [UserMiddleware::class]], function() {
-    Route::group(['prefix' => 'catalog'], function() {
-    Route::get('/', [App\Http\Controllers\Auth\UserCatalogController::class,'index'])->name('catalog');
+Route::group(['prefix' => 'catalog'], function () {
+    Route::get('/', [App\Http\Controllers\Auth\UserCatalogController::class, 'index'])->name('catalog');
 });
 
 

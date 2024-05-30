@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\BaseController;
 use App\Models\User;
 use App\Services\UserService;
+use App\Services\WishlistService;
 use Illuminate\Http\Request;
 
 class UserController extends BaseController
@@ -79,5 +80,28 @@ class UserController extends BaseController
             'sub_page' => ''
         ];
         return view('auth.dashboard', $attr);
+    }
+
+    public function wishlist(Request $request)
+    {
+        $wishlistService = new WishlistService();
+
+        return $wishlistService->index($request);
+    }
+
+    public function wishlistCreate(Request $request)
+    {
+        $wishlistService = new WishlistService();
+        if (!$wishlistService->create($request)){
+            return response()->json([
+                'status' => 'Error',
+                'code' => 400,
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'OK',
+            'code' => 200,
+        ]);
     }
 }

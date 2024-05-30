@@ -91,7 +91,7 @@
                     rows += '<td>';
                     rows += this.stars;
                     var myObj = {};
-                    myObj['name'] = this.name;
+                    myObj['name'] = encodeURIComponent($.trim(this.name));
                     myObj['description'] = this.description;
                     myObj['language'] = this.language;
                     myObj['platform'] = this.platform;

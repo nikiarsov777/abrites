@@ -34,7 +34,7 @@
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="/users/whishlist" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="/wishlists" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="fa fa-bell">
                                     <span class="badge badge-info" id="wishlist_num">0</span>
@@ -43,7 +43,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" href="#">{{ _('Edit Wishlist') }}</a>
+                                    <a class="dropdown-item" href="/wishlists">{{ _('Show Wishlists') }}</a>
                                 </li>
                             </ul>
                         </li>
@@ -100,7 +100,7 @@
 </nav>
 <script>
     function countWishes() {
-        $.get('/users/wishlist/count').done(function(data) {
+        $.get('/wishlists/count').done(function(data) {
             $("#wishlist_num").text(data);
         });
     }

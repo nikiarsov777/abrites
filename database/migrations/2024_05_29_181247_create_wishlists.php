@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('wishlists', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->integer('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name', 255);
+            $table->string('description', 255);
             $table->string('language', 25);
             $table->string('platform', 25);
-            $table->string('latest_release_number', 25);
-            $table->text('latest_download_url');
+            $table->string('latest_release_number', 25)->nullable();
+            $table->text('latest_download_url')->nullable();
+            $table->timestamp('latest_release_published_at')->nullable();
+            $table->smallInteger('rank');
+            $table->smallInteger('stars');
             $table->timestamps();
         });
     }

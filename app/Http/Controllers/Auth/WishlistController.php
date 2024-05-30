@@ -20,7 +20,18 @@ class WishlistController extends BaseController
     }
     public function create(Request $request)
     {
-        //
+        $wishlistService = new WishlistService();
+        if (!$wishlistService->create($request)){
+            return response()->json([
+                'status' => 'Error',
+                'code' => 400,
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'OK',
+            'code' => 200,
+        ]);
     }
     public function update(Request $request, int $id)
     {
@@ -29,5 +40,12 @@ class WishlistController extends BaseController
     public function delete(Request $request, int $id)
     {
         //
+    }
+
+    public function count()
+    {
+        $wishlistService = new WishlistService();
+
+        return $wishlistService->count();
     }
 }

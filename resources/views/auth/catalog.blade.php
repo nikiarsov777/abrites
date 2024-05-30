@@ -1,4 +1,5 @@
 @section('page')
+    <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
     <div class="card">
         <div class="card-header">Catalog</div>
         <div class="card-body">
@@ -89,15 +90,22 @@
                     rows += '</td>';
                     rows += '<td>';
                     rows += this.stars;
-
-                    rows += '<input type="hidden" id="row_' + i + '" value="' + this.language + '###' +
-                        this.name + '###' + this.latest_release_number + '###' +
-                        this.description + '###' + this.platform + '###' +
-                        this.latest_release_published_at + '###' +
-                        this.rank + '###' + this.stars + '">';
+                    var myObj = {};
+                    myObj['name'] = this.name;
+                    myObj['description'] = this.description;
+                    myObj['language'] = this.language;
+                    myObj['platform'] = this.platform;
+                    myObj['latest_release_number'] = this.latest_release_number;
+                    myObj['latest_download_url'] = this.latest_download_url;
+                    myObj['latest_release_published_at'] = this.latest_release_published_at;
+                    myObj['rank'] = this.rank;
+                    myObj['stars'] = this.stars;
+                    var json = JSON.stringify(myObj);
+                    rows += '<input type="hidden" id="row_' + i + '" value=\'' + json + '\'>';
                     rows += '</td>';
                     rows += '<td>';
-                    rows += '<span id="but_' + i + '"><input type="button" value="Add" onclick="addWish(' + i + ')" /></span>';
+                    rows += '<span id="but_' + i + '"><input type="button" value="Add" onclick="addWish(' +
+                        i + ')" /></span>';
                     rows += '</td>';
                     rows += '</tr>';
                     i++;
@@ -139,9 +147,26 @@
         }
 
         function addWish(num) {
-            var numWish = 1*($('#wishlist_num').text()) + 1;
+            var numWish = 1 * ($('#wishlist_num').text()) + 1;
             $('#wishlist_num').text(numWish);
-            $('#but_' + num).empty()
+
+            saveWish($('#row_' + num).val(), num);
+        }
+
+        function saveWish(data, num) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('#token').val()
+                }
+            });
+            $.post("/users/wishlist", JSON.parse(data))
+            .done(function() {
+                    alert("Wish added!");
+                    $('#but_' + num).empty()
+                })
+                .fail(function() {
+                    alert("error");
+                });
         }
 
         $(document).ready(function() {

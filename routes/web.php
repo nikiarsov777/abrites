@@ -30,8 +30,9 @@ Route::group(['prefix' => 'users', 'middleware' => [UserMiddleware::class]], fun
     Route::delete('/{id}', [App\Http\Controllers\Auth\UserController::class,'delete'])->name('user_delete');
 
     Route::get('/wishlist', [App\Http\Controllers\Auth\WishlistController::class,'index'])->name('wishlist_index');
-    Route::post('/wishlist/{id}', [App\Http\Controllers\Auth\WishlistController::class,'create'])->name('wishlist_create');
-    Route::post('/wishlist/update/{id}', [App\Http\Controllers\Auth\WishlistController::class,'update'])->name('wishlist_update');
+    Route::post('/wishlist', [App\Http\Controllers\Auth\WishlistController::class,'create'])->name('wishlist_create');
+    Route::get('/wishlist/count', [App\Http\Controllers\Auth\WishlistController::class,'count'])->name('wishlist_count');
+    Route::put('/wishlist/{id}', [App\Http\Controllers\Auth\WishlistController::class,'update'])->name('wishlist_update');
     Route::delete('/wishlist/{id}', [App\Http\Controllers\Auth\WishlistController::class,'update'])->name('wishlist_delete');
 });
 

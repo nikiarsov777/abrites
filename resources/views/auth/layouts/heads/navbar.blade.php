@@ -98,3 +98,15 @@
         </ul>
     </div>
 </nav>
+<script>
+    function countWishes() {
+        $.get('/users/wishlist/count').done(function(data) {
+            $("#wishlist_num").text(data);
+        });
+    }
+
+    $(document).ready(function() {
+        countWishes();
+    });
+</script>
+

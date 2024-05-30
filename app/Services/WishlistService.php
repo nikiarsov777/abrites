@@ -12,7 +12,7 @@ class WishlistService extends BaseService
 {
     public function index(Request $request, string $order = 'id'): Paginator
     {
-        return Wishlist::where('user_id', auth()->user()->id)->orderBy($order)->simplePaginate(10);;
+        return Wishlist::where('user_id', auth()->user()->id)->orderBy($order)->simplePaginate(2);;
     }
 
     public function show(Request $request, int $id): Wishlist

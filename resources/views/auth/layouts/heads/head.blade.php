@@ -7,8 +7,8 @@
             top: 50;
             left: 0;
         }
-        label, span {
-            color: #ffffff;
+        label, span, a, a:link, a:hover, a:visited, a:active {
+            color: #7a766e;
         }
     </style>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
